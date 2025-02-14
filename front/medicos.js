@@ -1,13 +1,12 @@
-// Enviar os dados do formulário para o servidor
-const cadastroMedico = document.getElementById('cadastroMedico');
-cadastroMedico.addEventListener('submit', (event) => {
+const cadastro = document.getElementById('cadastro');
+cadastro.addEventListener('submit', (event) => {
     event.preventDefault();
     const corpo = {
-        nome: cadastroMedico.nome.value,
-        crm: cadastroMedico.crm.value,
-        especialidade: cadastroMedico.especialidade.value,
-        telefone: cadastroMedico.telefone.value,
-        email: cadastroMedico.email.value
+        nome: cadastro.nome.value,
+        crm: cadastro.crm.value,
+        especialidade: cadastro.especialidade.value,
+        telefone: cadastro.telefone.value,
+        email: cadastro.email.value
     }
     fetch('http://localhost:4000/medicos', {
         method: 'POST',
@@ -26,7 +25,6 @@ cadastroMedico.addEventListener('submit', (event) => {
         });
 });
 
-// Receber os dados do servidor e exibir na tabela
 fetch('http://localhost:4000/medicos')
     .then(response => response.json())
     .then(medicos => {
@@ -34,20 +32,19 @@ fetch('http://localhost:4000/medicos')
         medicos.forEach((medico) => {
             const linha = document.createElement('tr');
             linha.innerHTML = `
-            <td data-label="Id:">${medico.id}</td>
+            <td data-label="Id:">${medico.id_medico}</td>
             <td data-label="Nome:" contenteditable="true">${medico.nome}</td>
             <td data-label="CRM:" contenteditable="true">${medico.crm}</td>
             <td data-label="Especialidade:" contenteditable="true">${medico.especialidade}</td>
             <td data-label="Telefone:" contenteditable="true">${medico.telefone}</td>
             <td data-label="Email:" contenteditable="true">${medico.email}</td>
-            <td><button onclick="alterarMedico(this)">*</button><button onclick="excluirMedico(${medico.id})">-</button></td>
+            <td><button onclick="alterar(this)">*</button><button onclick="excluir(${medico.id_medico})">-</button></td>
         `;
             tabela.appendChild(linha);
         });
     });
 
-// Função que edita um médico enviando o ID e os dados para o servidor
-function alterarMedico(e) {
+function alterar(e) {
     const id = e.parentNode.parentNode.children[0].textContent
     const corpo = {
         nome: e.parentNode.parentNode.children[1].textContent,
@@ -63,7 +60,7 @@ function alterarMedico(e) {
     })
         .then(response => response.status)
         .then(status => {
-            if (status === 202) {
+            if (status === 200) {
                 msg3('Médico alterado com sucesso');
             } else {
                 msg3('Erro ao alterar médico');
@@ -71,14 +68,13 @@ function alterarMedico(e) {
         });
 }
 
-// Função que exclui um médico enviando o ID para o servidor
-function excluirMedico(id) {
-    fetch(`http://localhost:4000/medicos/${id}`, {
+function excluir(id_medico) {
+    fetch(`http://localhost:4000/medicos/${id_medico}`, {
         method: 'DELETE'
     })
         .then(response => response.status)
         .then(status => {
-            if (status === 204) {
+            if (status === 200) {
                 msg3('Médico excluído com sucesso');
             } else {
                 msg3('Erro ao excluir médico');
@@ -86,7 +82,6 @@ function excluirMedico(id) {
         });
 }
 
-// Função para exibir mensagens durante 3 segundos
 function msg3(mensagem) {
     msg = document.getElementById('msg');
     msg.innerHTML = mensagem;

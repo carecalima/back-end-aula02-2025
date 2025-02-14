@@ -4,7 +4,7 @@ const routes = express.Router();
 
 const Cliente = require('./controllers/cliente');
 
-const Medicos = require('./controllers/medicos');
+const Medicos = require('./controllers/medico');
 
 routes.get('/', (req, res) => {
     res.send('API Clínica Respondendo');
