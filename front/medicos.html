@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Clínica Médica - Listagem De Medicos</title>
+</head>
+
+<body>
+    <header>
+        <h1>Clínica Médica - Listagem De Medicos</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Cadastro</h2>
+            <form id="cadastro">
+                <input type="text" name="nome" placeholder="Digite seu nome" required>
+                <input type="text" name="crm" placeholder="Digite seu crm" required>
+                <input type="text" name="especialidade" placeholder="Digite sua especialidade" required>
+                <input type="number" name="telefone" placeholder="Digite seu telefone" required>
+                <input type="email" name="email" placeholder="Digite seu email" required>
+                <button type="submit">Cadastrar</button>
+            </form>
+        </section>
+        <section class="tabela">
+            <h2>Medicos</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nome</th>
+                        <th>CRM</th>
+                        <th>Especialidade</th>
+                        <th>Alterar ou excluir</th>
+                        <th>Email</th>
+                        <th>Telefone</th>
+                    </tr>
+                </thead>
+                <tbody id="medicos">
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <footer id="msg">Mensagens:</footer>
+</body>
+<script src="medicos.js"></script>
+
+</html>
